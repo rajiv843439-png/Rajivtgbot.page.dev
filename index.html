@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101827">
+  <title>Rajiv TG Bots — Telegram Bot Directory</title>
+  <meta name="description" content="Explore Telegram bots, discover useful tools and open bots directly in Telegram.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-mark">R</span><span>RAJIV<span class="brand-light">TG BOTS</span></span></a>
+    <nav class="nav-actions">
+      <a class="owner-link" href="https://t.me/Legend_boy_3" target="_blank" rel="noopener">Owner Profile ↗</a>
+      <button id="adminOpen" class="button button-outline">Admin Panel</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="live-dot"></span> TELEGRAM BOT DIRECTORY</div>
+        <h1>Find your next<br><span>favorite bot.</span></h1>
+        <p>Explore useful Telegram bots, discover new tools and launch them in one tap.</p>
+        <div class="hero-actions">
+          <a href="#directory" class="button button-primary">Explore bots <span>↓</span></a>
+          <a href="https://t.me/Legend_boy_3" target="_blank" rel="noopener" class="button button-glass">Contact owner ↗</a>
+        </div>
+        <div class="hero-stats">
+          <div><strong id="statBots">—</strong><small>Listed bots</small></div>
+          <div><strong id="statCategories">—</strong><small>Categories</small></div>
+          <div><strong>24/7</strong><small>Directory access</small></div>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+        <div class="telegram-card">
+          <div class="tg-icon">➤</div><div class="tg-lines"><i></i><i></i><i></i></div>
+          <div class="tg-badge">BOT DIRECTORY</div>
+        </div>
+        <span class="float-chip chip-a">✦ Discover</span><span class="float-chip chip-b">↗ Launch</span>
+        <span class="float-chip chip-c">◎ Explore</span>
+      </div>
+    </section>
+
+    <section class="directory-section" id="directory">
+      <div class="section-heading">
+        <div><div class="eyebrow">THE COLLECTION</div><h2>Explore the directory</h2><p>Find a bot that matches what you need.</p></div>
+        <div class="refresh-label"><span class="live-dot"></span> Live directory</div>
+      </div>
+      <div class="toolbar">
+        <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search bots by name, username or keyword…"></label>
+        <select id="categoryFilter" aria-label="Filter by category"><option value="">All categories</option></select>
+        <select id="sortFilter" aria-label="Sort bots"><option value="newest">Newest first</option><option value="az">Name A–Z</option><option value="popular">Most popular</option></select>
+      </div>
+      <div id="categoryChips" class="category-chips"></div>
+      <div id="botGrid" class="bot-grid"><div class="loading-card">Loading the directory…</div></div>
+      <div id="emptyState" class="empty-state hidden"><div class="empty-icon">⌕</div><h3>No bots found</h3><p>Try another search or category.</p><button id="clearFilters" class="button button-outline">Clear filters</button></div>
+      <div class="directory-foot"><span id="resultCount">Loading…</span><button id="loadMore" class="button button-outline hidden">Load more</button></div>
+    </section>
+
+    <section class="owner-banner">
+      <div><div class="eyebrow">HAVE A QUESTION?</div><h2>Need help or want to connect?</h2><p>Reach the directory owner on Telegram.</p></div>
+      <a class="button button-primary" href="https://t.me/Legend_boy_3" target="_blank" rel="noopener">Message owner ↗</a>
+    </section>
+  </main>
+
+  <footer><a class="brand footer-brand" href="#"><span class="brand-mark">R</span><span>RAJIV<span class="brand-light">TG BOTS</span></span></a><span>Independent Telegram bot directory · Not affiliated with Telegram.</span><span>© <span id="year"></span> Rajiv TG Bots</span></footer>
+
+  <div id="adminModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
+    <div class="modal-backdrop" data-close="true"></div>
+    <div class="modal-panel admin-panel">
+      <button class="modal-close" data-close="true" aria-label="Close">×</button>
+      <div class="eyebrow">OWNER ACCESS</div><h2 id="adminTitle">Admin panel</h2>
+      <p class="muted">Sign in with the admin account created in Supabase Authentication.</p>
+      <form id="loginForm" class="form-stack">
+        <label>Email<input id="adminEmail" type="email" autocomplete="username" required placeholder="admin@example.com"></label>
+        <label>Password<input id="adminPassword" type="password" autocomplete="current-password" required placeholder="Your password"></label>
+        <button class="button button-primary full-width" type="submit">Sign in securely</button>
+      </form>
+      <div id="adminWorkspace" class="hidden">
+        <div class="admin-toolbar"><div><strong id="adminIdentity"></strong><small>Signed in as directory admin</small></div><button id="logoutBtn" class="button button-outline">Sign out</button></div>
+        <div class="admin-tabs"><button class="tab active" data-tab="manage">Manage bots</button><button class="tab" data-tab="add">Add a bot</button></div>
+        <div id="manageTab" class="tab-content"><div id="adminBotList" class="admin-list">Loading…</div></div>
+        <div id="addTab" class="tab-content hidden">
+          <form id="botForm" class="form-stack">
+            <input id="editId" type="hidden">
+            <div class="form-grid">
+              <label>Bot display name *<input id="botName" maxlength="80" required placeholder="Example: Nexora Assistant"></label>
+              <label>Telegram username *<input id="botUsername" maxlength="64" required placeholder="@YourBot"></label>
+              <label>Category *<select id="botCategory" required><option value="Utility">Utility</option><option value="AI">AI</option><option value="Entertainment">Entertainment</option><option value="Games">Games</option><option value="Moderation">Moderation</option><option value="Giveaway">Giveaway</option><option value="Music">Music</option><option value="Other">Other</option></select></label>
+              <label>Status<select id="botStatus"><option value="active">Active</option><option value="maintenance">Maintenance</option></select></label>
+            </div>
+            <label>Short description *<textarea id="botDescription" maxlength="500" rows="3" required placeholder="What does this bot do?"></textarea></label>
+            <label>Tags <input id="botTags" maxlength="180" placeholder="ai, group, useful (comma separated)"></label>
+            <label>Bot image <input id="botImage" type="file" accept="image/png,image/jpeg,image/webp"><small>PNG, JPG or WEBP · Maximum 5 MB. Leave blank to keep the current image.</small></label>
+            <div id="imagePreview" class="image-preview hidden"></div>
+            <label class="check-row"><input id="botFeatured" type="checkbox"> Feature this bot on the directory</label>
+            <div class="form-actions"><button class="button button-primary" type="submit" id="saveBotBtn">Save bot</button><button class="button button-outline" type="button" id="resetBotForm">Clear form</button></div>
+            <p id="formMessage" class="form-message" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+      <p id="adminMessage" class="form-message" aria-live="polite"></p>
+    </div>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="config.js"></script><script src="app.js"></script>
+</body>
+</html>

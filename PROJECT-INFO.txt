@@ -1,0 +1,63 @@
+PROJECT: Rajiv TG Bots Directory
+VERSION: 2.0
+
+FEATURE MAP
+1. Public landing page
+2. Owner contact shortcut
+3. Search by bot title, username and description
+4. Category dropdown and quick category chips
+5. Newest, alphabetical and popular sorting
+6. Responsive bot cards
+7. Bot avatar / image gallery support
+8. Featured bot badge
+9. Active / maintenance status
+10. Tags
+11. Copy Telegram username
+12. Open Telegram deep link
+13. Admin authentication
+14. Admin-only bot listing management
+15. Add listing
+16. Edit listing
+17. Delete listing
+18. Upload image to Supabase Storage
+19. Persistent PostgreSQL database
+20. Row Level Security
+21. Realtime refresh
+22. Mobile layout
+23. Empty state and loading state
+24. Toast notifications
+25. Input validation and HTML escaping
+
+DATA MODEL
+admins:
+  user_id — Supabase Auth user UUID
+  created_at — admin creation time
+
+bots:
+  id — UUID
+  name — display title
+  username — Telegram username, unique
+  category — category name
+  description — short details
+  tags — text array
+  image_url — public image URL
+  image_path — storage object path
+  status — active or maintenance
+  featured — featured card
+  is_public — public visibility
+  clicks — click counter placeholder for future analytics
+  created_by — admin UUID
+  created_at / updated_at — timestamps
+
+bot_categories:
+  name, enabled, sort_order
+
+FUTURE EXTENSIONS
+- Multiple admins
+- Bot submission requests with manual approval
+- Favorites saved per browser
+- Bot detail pages
+- Analytics dashboard
+- Import/export listings
+- Announcement banner
+- Maintenance notices
